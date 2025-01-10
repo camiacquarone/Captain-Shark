@@ -14,9 +14,9 @@ function App() {
   return (
     <div className="App">
       <header>
-        <div class = 'whatever'>
+        <div className = 'whatever'>
           <img src = "https://github.com/camiacquarone/Captain-Shark/blob/main/src/app/images/image.png?raw=trues" />
-          <h1 class = 'cap'>Captain Shark</h1>
+          <h1 className = 'cap'>Captain Shark</h1>
         </div>
         
         <p>Your AI-powered financial education companion</p>
@@ -25,26 +25,26 @@ function App() {
         <button onClick={() => setActiveTab('quiz')} className={activeTab === 'quiz' ? 'active' : ''}>
           Captain Shark's Quiz
         </button>
-        <button class = 'button' onClick={() => setActiveTab('chatbot')} className={activeTab === 'chatbot' ? 'active' : ''}>
+        <button className = 'button' onClick={() => setActiveTab('chatbot')} className={activeTab === 'chatbot' ? 'active' : ''}>
           Captain Shark
         </button>
       </nav>
       <main>
         {activeTab === 'quiz' ? <QuizGenerator /> : <FinancialChatbot />}
       </main>
-    <div class="ocean">
-    <div class="bubble bubble--1"></div>
-    <div class="bubble bubble--2"></div>
-    <div class="bubble bubble--3"></div>
-    <div class="bubble bubble--4"></div>
-    <div class="bubble bubble--5"></div>
-    <div class="bubble bubble--6"></div>
-    <div class="bubble bubble--7"></div>
-    <div class="bubble bubble--8"></div>
-    <div class="bubble bubble--9"></div>
-    <div class="bubble bubble--10"></div>
-    <div class="bubble bubble--11"></div>
-    <div class="bubble bubble--12"></div>
+    <div className="ocean">
+    <div className="bubble bubble--1"></div>
+    <div className="bubble bubble--2"></div>
+    <div className="bubble bubble--3"></div>
+    <div className="bubble bubble--4"></div>
+    <div className="bubble bubble--5"></div>
+    <div className="bubble bubble--6"></div>
+    <div className="bubble bubble--7"></div>
+    <div className="bubble bubble--8"></div>
+    <div className="bubble bubble--9"></div>
+    <div className="bubble bubble--10"></div>
+    <div className="bubble bubble--11"></div>
+    <div className="bubble bubble--12"></div>
     <div id="octocat"></div>
 </div>
     </div>

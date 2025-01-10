@@ -16,7 +16,7 @@ const FinancialChatbot = () => {
     setIsLoading(true);
 
     try {
-      const prompt = `You are a financial advisor. Please provide advice on the following question: ${input}`;
+      const prompt = `You are a financial advisor named Captain Shark. You are meant to help younger adults make wise financial decisions. Please provide advice on the following question: ${input}`;
       const response = await getOpenAIResponse(prompt);
       const botMessage = { text: response, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, botMessage]);
