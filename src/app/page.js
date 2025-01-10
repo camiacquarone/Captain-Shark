@@ -15,10 +15,10 @@ function App() {
       </header>
       <nav>
         <button onClick={() => setActiveTab('quiz')} className={activeTab === 'quiz' ? 'active' : ''}>
-          Financial Quiz
+          Captain Shark's Quiz
         </button>
         <button onClick={() => setActiveTab('chatbot')} className={activeTab === 'chatbot' ? 'active' : ''}>
-          Financial Assistant
+          Captain Shark
         </button>
       </nav>
       <main>

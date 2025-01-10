@@ -9,7 +9,7 @@ const openai = new OpenAI({
 export const getOpenAIResponse = async (prompt) => {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "chatgpt-4o-latest",
       messages: [{ role: "user", content: prompt }],
       max_tokens: 150
     });

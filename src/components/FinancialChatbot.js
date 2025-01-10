@@ -46,7 +46,7 @@ const FinancialChatbot = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-          placeholder="Ask a financial question..."
+          placeholder="Ask a financial question to Captain Shark!"
         />
         <button onClick={sendMessage} disabled={isLoading}>Send</button>
       </div>

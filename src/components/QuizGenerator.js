@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { getOpenAIResponse } from '../openAiService';
 
 const QuizGenerator = () => {
-  const [quiz, setQuiz] = useState(null);
+  const [quiz, setQuiz] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -13,21 +13,36 @@ const QuizGenerator = () => {
     generateQuiz();
   }, []);
 
+  const generateQuestion = async (topic) => {
+    const prompt = `Generate a financial quiz question on the topic of ${topic}. Format the response as a JSON object with the following structure: {"question": "The question text", "options": ["a) Option A", "b) Option B", "c) Option C", "d) Option D"], "correctAnswer": "The correct option (a, b, c, or d)"}. Ensure the JSON is properly formatted. Do not start with $'''json`;
+    
+    try {
+      const response = await getOpenAIResponse(prompt);
+      console.log(`Raw API response for ${topic}:`, response);
+      return JSON.parse(response);
+    } catch (error) {
+      console.error(`Error generating question for ${topic}:`, error);
+      return null;
+    }
+  };
+
   const generateQuiz = async () => {
     setIsLoading(true);
-    try {
-      const prompt = `Generate a financial quiz with 5 multiple-choice questions. Each question should have 4 options (a, b, c, d) and indicate the correct answer. Cover topics like budgeting, investing, taxes, and credit. Format the response as a JSON array of objects, each containing 'question', 'options', and 'correctAnswer' fields.`;
-      const response = await getOpenAIResponse(prompt);
-      const parsedQuiz = JSON.parse(response);
-      setQuiz(parsedQuiz);
-      setCurrentQuestion(0);
-      setScore(0);
-      setShowResult(false);
-    } catch (error) {
-      console.error('Error generating quiz:', error);
-    } finally {
-      setIsLoading(false);
+    const topics = ["budgeting", "investing", "taxes", "credit", "saving"];
+    const newQuiz = [];
+
+    for (const topic of topics) {
+      const question = await generateQuestion(topic);
+      if (question) {
+        newQuiz.push(question);
+      }
     }
+
+    setQuiz(newQuiz);
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowResult(false);
+    setIsLoading(false);
   };
 
   const handleAnswer = (selectedAnswer) => {
@@ -43,7 +58,7 @@ const QuizGenerator = () => {
   };
 
   if (isLoading) return <div>Generating quiz...</div>;
-  if (!quiz) return <div>No quiz available. Please try again.</div>;
+  if (quiz.length === 0) return <div>No quiz available. Please try again.</div>;
 
   return (
     <div className="quiz-container">
@@ -54,7 +69,7 @@ const QuizGenerator = () => {
           <p>{quiz[currentQuestion].question}</p>
           <div className="answers">
             {quiz[currentQuestion].options.map((option, index) => (
-              <button key={index} onClick={() => handleAnswer(option)}>
+              <button key={index} onClick={() => handleAnswer(option.charAt(0))}>
                 {option}
               </button>
             ))}
